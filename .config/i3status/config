@@ -1,0 +1,40 @@
+# i3status configuration file with Tokyo Night theme
+#
+# It is important that this file is edited as UTF-8.
+
+general {
+    # Tokyo Night Palette
+    color_good = "#7aa2f7"      # Blue
+    color_degraded = "#e0af68"  # Yellow
+    color_bad = "#f7768e"       # Red
+
+    colors = true
+    interval = 5
+}
+
+# The order of the modules is important.
+order += "tztime local"
+order += "memory"
+order += "volume master"
+
+# Module to display used and total RAM.
+memory {
+    format = " 󰍛 %used / %total " # nf-md-memory
+}
+
+# Module for volume control.
+# Works with both PulseAudio and PipeWire by default.
+# The 'device' can be changed if needed, e.g., for ALSA.
+volume master {
+    format = "   %volume "      # nf-fa-volume_up
+    format_muted = " 󰖁  %volume "  # nf-mdi-volume_off
+    device = "default"
+    mixer = "Master"
+    mixer_idx = 0
+}
+
+# Module for displaying the local date and time.
+tztime local {
+    # nf-fa-calendar_o  nf-fa-clock_o
+    format = " 󰃭 %A, %d %B ~  %H:%M                                "
+}

@@ -1,0 +1,73 @@
+
+-- local M = {}
+--
+-- local function find_norminette_win()
+--   for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+--     local buf = vim.api.nvim_win_get_buf(win)
+--     if vim.bo[buf].filetype == 'norminette' then
+--       return win, buf
+--     end
+--   end
+--   return nil, nil
+-- end
+--
+-- local function create_norminette_win()
+--   -- Save current window to restore focus later
+--   local original_win = vim.api.nvim_get_current_win()
+--
+--   vim.cmd('belowright 10new')
+--   local new_win = vim.api.nvim_get_current_win()
+--   local new_buf = vim.api.nvim_get_current_buf()
+--
+--   vim.bo[new_buf].buftype = 'nofile'
+--   vim.bo[new_buf].bufhidden = 'wipe'
+--   vim.bo[new_buf].buflisted = false
+--   vim.bo[new_buf].swapfile = false
+--   vim.bo[new_buf].filetype = 'norminette'
+--   vim.keymap.set('n', 'q', '<cmd>q<cr>', { silent = true, buffer = new_buf })
+--
+--   vim.api.nvim_set_current_win(original_win)
+--
+--   return new_win, new_buf
+-- end
+--
+-- local function update_norminette_content(bufnr, filename, output)
+--
+--   local title = { 'Norminette result for: ' .. filename, '-------------------------' }
+--   local all_lines = vim.list_extend(title, output)
+--
+--   vim.bo[bufnr].modifiable = true
+--   vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, all_lines)
+--   vim.bo[bufnr].modifiable = false
+-- end
+--
+-- function M.setup()
+--   vim.api.nvim_create_user_command('Norminette', function()
+--
+--     local file = vim.fn.expand('%:p')
+--
+--     if file == '' then
+--       vim.notify('Cannot run on a non-file buffer.', vim.log.levels.WARN)
+--       return
+--     end
+--
+--     local original_win = vim.api.nvim_get_current_win()
+--     local file_name = vim.fn.fnamemodify(file, ':t')
+--     local output = vim.fn.systemlist('norminette ' .. vim.fn.shellescape(file))
+--     local norm_win, norm_buf = find_norminette_win()
+--
+--     if not norm_win then
+--       norm_win, norm_buf = create_norminette_win()
+--     end
+--
+--     update_norminette_content(norm_buf, file_name, output)
+--     vim.api.nvim_set_current_win(original_win)
+--   end, { desc = 'Run norminette on the current file' })
+--
+--   vim.keymap.set('n', '<leader>nrm', '<cmd>Norminette<cr>', {
+--     desc = 'Run Norminette on current file',
+--     silent = true,
+--   })
+-- end
+--
+-- return M
