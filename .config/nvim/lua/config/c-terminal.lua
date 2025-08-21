@@ -28,9 +28,10 @@ local function send_run_command(file_name)
     return
   end
 
-  -- The user wants the output to be 'a', not the same as the filename
+  local file_dir = vim.fn.expand('%:p:h')
+
   local output_name = 'a'
-  local command = 'rm -f ' .. output_name .. '; gcc -o ' .. output_name .. ' ' .. file_name .. ' && ./' .. output_name .. '\n'
+  local command = 'cd ' .. file_dir .. ' && rm -f ' .. output_name .. '; gcc ' .. file_name .. ' -o ' .. output_name .. ' && ./' .. output_name .. '\n'
 
   vim.fn.chansend(Term_job_id, command)
   vim.notify('✅ Command sent to terminal.', vim.log.levels.INFO)

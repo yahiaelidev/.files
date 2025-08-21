@@ -17,8 +17,8 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.api.nvim_create_autocmd('TermOpen', {
   group = vim.api.nvim_create_augroup('terminal-open-custom', { clear = true }),
   callback = function()
-    vim.opt.number = true
-    vim.opt.relativenumber = true
+    vim.opt.number = false
+    vim.opt.relativenumber = false
   end,
 })
 

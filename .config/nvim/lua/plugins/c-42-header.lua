@@ -2,10 +2,8 @@ return {
   "https://gitlab.com/pandark/42header-vim",
   ft = {"c", "h"},  -- Only load for C/C++ files
   init = function()
-    -- Set your 42 credentials (REQUIRED)
-    vim.b.fortytwoheader_user = "yelidrissi"      -- Your 42 intra login
-    vim.b.fortytwoheader_mail = "yelidrissi@email.fr"   -- Your 42 email
-    
+    vim.b.user42 = "yael-idr"      -- Your 42 intra login
+    vim.b.mail42 = "yael-idr@student.1337.ma"   -- Your 42 email
     -- Auto-add header when creating new C files
     vim.api.nvim_create_autocmd("BufNewFile", {
       pattern = {"*.c", "*.h"},
@@ -15,7 +13,6 @@ return {
         end
       end
     })
-    
     -- Auto-update header on save
     vim.api.nvim_create_autocmd("BufWritePre", {
       pattern = {"*.c", "*.h"},
